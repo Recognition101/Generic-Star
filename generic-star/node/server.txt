@@ -1,0 +1,15 @@
+_________________________________________________________________
+                      G E N E R I C _ *
+=================================================================
+              Generic_Star is currently running.
+      To access the game editor, use a browser to visit:
+              
+                 http://localhost:8787/
+                 
+       You can also run the games independently by simply
+      clicking their index.html files in /games/your_game/
+      
+           Closing this window turns off the editor.
+      
+_________________________________________________________________
+=================================================================

@@ -1,0 +1,190 @@
+
+<html> 
+ 
+<head> 
+	<title>Generic_Star Editor</title> 
+	<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1"> 
+	
+	<link rel="stylesheet" type="text/css" href="editor.css" />
+	
+	<script type="text/javascript" src="../lib/Box2d.min.js"></script>
+	<script type="text/javascript" src="../lib/glMatrix-0.9.5.min.js"></script> 
+	<script type="text/javascript" src="../lib/webgl-utils.js"></script>
+	<script type="text/javascript" src="../Core.js"></script>
+ 	<script type="text/javascript" src="editor.js"></script>
+ 	<script type="text/javascript" src="generics.js"></script>
+</head> 
+ 
+ 
+<body oncontextmenu="return false;">
+	<div class="modalScreen" id="screen">
+		<div class="modalCont">
+			<div class="modalBtnsDialog">
+				<div class="modalBtnsDialogTitle"></div>
+				<div class="modalBtnsDialogText"></div>
+				<div class="modalBtnsButtonRow"></div>
+			</div>
+		</div>
+		
+		<div class="modalCont modalContFile">
+			<div class="modalImageDialog">
+				<b>Choose an Image:</b><br style="clear:both;"/>
+				<div class="modalImagePicture"></div>
+				<div class="modalImageSettings">
+					<input type="checkbox" id="modalImageTexture"  class="modalImageCheck" /><label for="modalImageTexture"><b>Texture is World-Aligned</b></label><br/>
+					<input type="checkbox" id="modalImageAnimated" class="modalImageCheck" /><label for="modalImageAnimated"><b>Animated</b></label><br/>
+					<div class="modalImageAnimationSettings">
+						<input class="modalImageAnimationInput" type="number" min="1" max="200"   step="1" value="1" />
+						<div class="modalImageAnimationSettingsLabel">Frame Columns</div><br style="clear:both;"/>
+						<input class="modalImageAnimationInput" type="number" min="1" max="200"   step="1" value="1" />
+						<div class="modalImageAnimationSettingsLabel">Frame Rows</div><br style="clear:both;"/>
+						<input class="modalImageAnimationInput" type="number" min="1" max="40000" step="1" value="1" />
+						<div class="modalImageAnimationSettingsLabel">Start Frame</div><br style="clear:both;"/>
+						<input class="modalImageAnimationInput" type="number" min="1" max="40000" step="1" value="1" />
+						<div class="modalImageAnimationSettingsLabel">End Frame</div><br style="clear:both;"/>
+					</div>
+				</div>
+				<div class="modalImageListingPanel"></div>
+				<div class="modalFileButtons">
+					<div class="modalFileButtonSave button2">Save Settings</div>
+					<div class="modalFileButtonCancel button2">Cancel</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modalCont modalContFile">
+			<div class="modalSoundDialog">
+				<b>Choose a Sound:</b><br style="clear:both;"/>
+				<div class="modalSoundListingPanel"></div>
+				<div class="modalFileButtons">
+					<div class="modalFileButtonSave button2">Save Settings</div>
+					<div class="modalFileButtonCancel button2">Cancel</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="header">
+		<div class="topBtnSpace"></div>
+		<div class="button" id="newBtn">New Game</div>
+		<div class="topBtnSpace"></div>
+		<div class="button" id="saveBtn">Save</div>
+		<div class="headerName">Generic_*</div>
+		<div class="topBtnSpace"></div>
+		<div class="buttonDropdown">
+			Load: 
+			<select id="loadBtn"><option>No Games</option></select>
+		</div>
+	</div>
+	
+	<div class="sidebar" id="sidebar">
+		<div class="sidebarNoGames sidebarNoGamesOff">
+			You haven&#39;t created any games.<br/><br/>
+			Create a new one with the button above!
+		</div>
+		<div class="sidebarEditor sidebarEditorOff">
+			<div class="sidebarTitle">&nbsp;Images</div>
+			<div class="sidebarTitleLine" style="width: 73%">
+				<div class="sidebarTitleAdd">[+] &nbsp; Add Image</div>
+			</div>
+			<div class="sidebarImages"></div>
+			
+			<div class="sidebarTitle">&nbsp;Sounds</div>
+			<div class="sidebarTitleLine" style="width: 71%">
+				<div class="sidebarTitleAdd">[+] &nbsp; Add Sound</div>
+			</div>
+			<div class="sidebarSounds"></div>
+			
+			<div class="sidebarTitle">&nbsp;Objects</div>
+			<div class="sidebarTitleLine" style="width: 68%">
+				<div class="sidebarTitleAdd">[+] &nbsp; Add Object</div>
+			</div>
+			<div class="sidebarCode"></div>
+			
+			<div class="sidebarTitle">&nbsp;Rooms</div>
+			<div class="sidebarTitleLine" style="width: 70%">
+				<div class="sidebarTitleAdd">[+] &nbsp; Add Room&nbsp;</div>
+			</div>
+			<div class="sidebarRooms"></div>
+		</div>
+	</div>
+	
+	<div class="menuNew" id="menuNew">
+		Game Name: <input id="newgameName" type="text" maxlength="40"/><br/>
+		<div class="button2" style="float:right;" id="createBtn">Create Game</div>
+	</div>
+	
+	<div class="menuAddFile" id="menuAddImg">
+		Drag Images Here:
+		<div class="menuDropbox"></div><br/>
+		<div class="throbber" style="float:right;">
+			<span class="throbberFlash">G&#x2605;</span>
+			Adding
+			<span class="throbberData" style="display: none;"></span>
+		</div>
+		<div class="button2" style="float:right;">Add Images</div>
+	</div>
+	
+	<div class="menuAddFile menuAddSnd" id="menuAddSnd">
+		Drag Sounds Here:
+		<div class="menuDropbox"></div><br/>
+		<div class="throbber" style="float:right;">
+			<span class="throbberFlash">G&#x2605;</span>
+			Adding
+			<span class="throbberData" style="display: none;"></span>
+		</div>
+		<div class="button2" style="float:right;">Add Sounds</div>
+	</div>
+	
+	<div class="menuAddFile menuAddCode" id="menuAddCode">
+		Generic: <select class="menuGenericSelector"><option>No Generics</option></select>
+		<div class="genericOpts"></div><br/><br/>
+		Name: <input class="menuAddCodeName" /><br/><br/>
+		<div class="button2">Create</div>
+	</div>
+	
+	<div class="menuAddFile menuAddCode" id="menuEditCode">
+		<div class="genericOpts"></div><br/><br/>
+	</div>
+	
+	<div class="menuAddFile menuAddRoom" id="menuAddRoom">
+		<b/>Room Settings:</b><br/><br/>
+		Room Name:   <input type="text" class="menuRoomInput" /> <br style="clear:both"/>
+		Room Width:  <input type="number" min="50" max="5000" step="1" value="640" class="menuRoomInput" /> <br style="clear:both"/>
+		Room Height: <input type="number" min="50" max="5000" step="1" value="480" class="menuRoomInput" /> <br style="clear:both"/>
+		View Width:  <input type="number" min="50" max="5000" step="1" value="640" class="menuRoomInput" /> <br style="clear:both"/>
+		View Height: <input type="number" min="50" max="5000" step="1" value="480" class="menuRoomInput" /> <br style="clear:both"/>
+		<br/>
+		<div class="button2" style="float:right;">Add Room</div>
+	</div>
+	
+	<div class="menuAddFile menuAddRoom" id="menuEditRoom">
+		<b/>Room Settings:</b><br/><br/>
+		Room Name:   <input type="text" class="menuRoomInput" disabled /> <br style="clear:both"/>
+		Room Width:  <input type="number" min="50" max="5000" step="1" value="640" class="menuRoomInput" /> <br style="clear:both"/>
+		Room Height: <input type="number" min="50" max="5000" step="1" value="480" class="menuRoomInput" /> <br style="clear:both"/>
+		View Width:  <input type="number" min="50" max="5000" step="1" value="640" class="menuRoomInput" /> <br style="clear:both"/>
+		View Height: <input type="number" min="50" max="5000" step="1" value="480" class="menuRoomInput" /> <br style="clear:both"/>
+		<br/>
+		<div class="button2" style="float:right;">Save Changes</div>
+	</div>
+	
+	<div id="notification" class="notify">
+		<div class="notifyIcon"></div>
+		<div class="notifyTitle"></div><br/>
+		<div class="notifyText"></div>
+	</div>
+	<br/><br/><br/>
+	
+    <div class="main" id="main">
+    	<canvas class="editor" width="640" height="480"></canvas>
+    	<div class="editorScroll">
+    		<div class="editorWH"></div>
+    	</div>
+    	<div class="editorXY"></div>
+    </div>
+    
+    <!-- <input id="myfile" name="myfile" type="file" multiple="multiple" style="margin-left: 200px;" /> -->
+</body> 
+ 
+</html> 

@@ -1,0 +1,914 @@
+body {
+	margin: 0px;
+}
+
+.throbber {
+	font-size: 14px;
+	font-weight: bold;
+	font-family: helvetica, arial, sans-serif;
+	text-shadow: 0px 1px 0px rgba(0,0,0, 0.3);
+	color: rgba(220,220,220,1);
+	
+	background-color: rgba(0, 0, 0, 0.7);
+	border: 1px solid rgba(240, 240, 240, 0.6);
+	border-radius: 10px;
+	
+	padding: 3px;
+	padding-left: 6px;
+	padding-right: 6px;
+	
+	display: none;
+}
+
+@-webkit-keyframes throb {
+	from {opacity: 1;}
+	to {opacity: 0;}
+}
+
+.throbberFlash {
+	-webkit-animation-name: throb;
+	-webkit-animation-duration: 500ms;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-direction: alternate;
+	-webkit-animation-timing-function: linear;
+}
+
+
+.throbberVisible {
+	display: inline;
+}
+
+.throbberInvisible {
+	display: none;
+}
+
+.button, .button2, .buttonDropdown {
+	font-size: 14px;
+	font-weight: bold;
+	font-family: helvetica, arial, sans-serif;
+	text-shadow: 0px 1px 0px rgba(0,0,0, 0.3);
+	padding: 4px;
+	color: rgba(220,220,220,1);
+	
+	margin-top: 4px;
+	
+	float: left;
+	background-color: rgba(0,0,0, 0.7);
+	border-radius: 5px;
+	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5);
+	
+	cursor: pointer;
+}
+
+.buttonDropdown {
+	padding: 1px;
+	padding-left: 4px;
+	margin-top: 3px;
+	margin-left: 5px;
+	
+	cursor: auto;
+}
+
+.button2 {
+	background-image: -webkit-gradient(linear,
+    	left top,
+    	left bottom,
+    	color-stop(0,   rgb(90,90,90)),
+    	color-stop(1.0, rgb(15,15,15))
+    	);
+   	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2);
+}
+
+.thumbContainer {
+	position: absolute; left: 0px; top: 0px;
+	width: 35px;
+	height: 35px;
+	text-align: center;
+	display: table;
+	overflow: hidden;
+}
+
+.thumb {
+	display: table-cell;
+	vertical-align: middle;
+	max-width: 32px;
+	max-height: 32px;
+	text-align: center;
+}
+
+.soundPlayer {
+	position: absolute; left: 6px; top: 2px;
+	width: 15px;
+	height: 14px;
+	padding-left: 7px;
+	line-height: 10px;
+}
+
+.soundPlayerPaused {
+	width: 14px;
+	line-height: 8px;
+	padding-left: 8px;
+}
+
+.soundAudio {
+	display: none;
+}
+
+/**======================================
+  *             TOP BAR
+  *======================================*/
+
+.header {
+	background-image: -webkit-gradient(linear,
+    	left bottom,
+    	left top,
+    	color-stop(0,   rgb(100,100,100)),
+    	color-stop(1.0, rgb(240,240,240))
+    	);
+   	
+   	width: 100%;
+   	height: 35px;
+   	font-family: helvetica, arial, sans-serif;
+   	z-index: 100;
+   	
+   	position: relative;
+   	
+   	box-shadow: 0px 0px 4px 5px rgba(0, 0, 0, 0.5);
+}
+
+.topBtnSpace {
+	float: left;
+	width: 20px;
+	height: 10px;
+}
+
+.headerName {
+	font-size: 20px;
+	text-shadow: 0px 1px 0px rgba(255,255,255, 0.3);
+	color: rgb(30, 30, 30);
+	float: right;
+	margin-top: 6px;
+	margin-right: 10px;
+	z-index: -10;
+}
+
+/**======================================
+  *             LEFT SIDEBAR
+  *======================================*/
+
+.sidebar {
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	text-shadow: 0px 1px 0px rgba(255,255,255, 0.1);
+	color: rgb(230, 230, 230);
+	
+	position: absolute;
+	top:35px; bottom:15px; left:15px;
+	
+	width: 200px;
+	
+	background-color: rgba(0,0,0, 0.8);
+	border-radius: 0px 0px 10px 10px;
+	
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.sidebarNoGames {
+	position: absolute;
+	left: 0px; top: 0px;
+	padding: 10px;
+	width: 200px;
+}
+
+.sidebarSlideAnim {
+	-webkit-transition-property: -webkit-transform;
+	-webkit-transition-duration: 500ms;
+	-webkit-transition-timing-function: ease-in-out;
+}
+
+.sidebarNoGamesOff {
+	-webkit-transform: translate(-220px, 0px);
+}
+
+.sidebarEditor {
+	padding-top: 10px;
+}
+
+.sidebarEditorOff {
+	-webkit-transform: translate(220px, 0px);
+}
+
+.sidebarTitle {
+	float: left;
+	font-size: 16px;
+	font-weight: bold;
+	font-variant:small-caps;
+}
+
+.sidebarTitleLine {
+	float: right;
+	background-color: rgba(255,255,255, 0.5);
+	height: 16px;
+	margin-top: 2px;
+	
+	cursor: pointer;
+}
+
+.sidebarTitleAdd {
+	float:right;
+	color: rgba(0,0,0,1);
+	font-size: 12px;
+	font-weight: bold;
+	text-align: right;
+	
+	padding-right: 3px;
+	
+	white-space:nowrap;
+	overflow: hidden;
+	
+	-webkit-transform: translate(70px, 0px);
+	-webkit-transition-property: -webkit-transform;
+	-webkit-transition-duration: 500ms;
+	-webkit-transition-timing-function: ease-in-out;
+}
+
+.sidebarTitleAddVisible {
+	-webkit-transform: translate(0px, 0px);
+}
+
+.sidebarImages, .sidebarSounds, .sidebarCode, .sidebarRooms {
+	clear: both;
+	min-height: 100px;
+}
+
+.sidebarImages {
+}
+
+.sidebarSounds {
+}
+
+.sidebarCode {
+}
+
+.sidebarRow {
+	clear: both;
+	height: 35px;
+	position: relative;
+	overflow: hidden;
+	
+	-webkit-transition-property: opacity, height, background-color;
+	-webkit-transition-duration: 500ms, 500ms, 200ms;
+	-webkit-transition-timing-function: ease-in-out, ease-in-out, ease-in-out;
+}
+
+.sidebarRowSelected {
+	background-color: rgba(255,255,255, 0.3);
+}
+
+.sidebarRowCollapse {
+	height: 0;
+	opacity: 0;
+}
+
+.sidebarRowText {
+	position: absolute; left: 35px; top: 0px;
+	width: 180px;
+	overflow: hidden;
+	padding-left: 5px;
+	padding-top: 8px;
+	
+	cursor: pointer;
+}
+
+.sidebarRowTextHidden {
+	display: none;
+}
+
+.sidebarRowRename {
+	position: absolute; left: 35px; top: 0px;
+	margin-left: 1px;
+	margin-top: 7px;
+	
+	color: rgba(200,200,200,1.0);
+	border-radius: 4px;
+	border: 1px solid rgba(255,255,255, 0.9);
+	background-color: black;
+	
+	width: 160px;
+	display: none;
+}
+
+.sidebarRowRenameVisible {
+	display: inline;
+}
+
+.sidebarButton {
+	position: absolute;
+	right: 5px;
+	top: 0px;
+	opacity: 0;
+	pointer-events:none;
+	color: rgba(220,220,220,0.6);
+	
+	-webkit-transition-property: opacity, color;
+	-webkit-transition-duration: 500ms, 500ms;
+	-webkit-transition-timing-function: ease-in-out, ease-in-out;
+	z-index: 100;
+}
+
+.sidebarButton2 {
+	right: 70px;
+}
+
+.sidebarButtonOverRow {
+	opacity: 0.9;
+	pointer-events:auto;
+}
+
+.sidebarButtonOver {
+	opacity: 1;
+	pointer-events:auto;
+	color: rgba(220,220,220,1);
+}
+
+/**======================================
+  *             POPUP MENUS
+  *======================================*/
+
+.menuNew, .menuAddFile {
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	color: rgba(200,200,200, 1.0);
+	text-shadow: 0px 1px 0px rgba(255,255,255, 0.1);
+	
+	background-color: rgba(0, 0, 0, 0.9);
+	border-radius: 10px;
+	padding: 10px;
+	
+	position: absolute;
+	left: 25px;
+	top: 45px;
+	z-index: 200;
+	
+	opacity: 0;
+	-webkit-transform: translate(0px, -20px);
+	-webkit-transition-property: opacity, -webkit-transform;
+	-webkit-transition-duration: 500ms, 500ms;
+	-webkit-transition-timing-function: ease-in-out, ease-in-out;
+	pointer-events:none;
+}
+
+.menuNew:after, .menuAddFile:after {
+	content:"";
+	position:absolute;
+	top:-15px;
+	left:50px;
+	border-width:0px 15px 15px;
+	border-style:solid;
+	border-color:rgba(0,0,0, 0.9) transparent;
+    /* reduce the damage in FF3.0 */
+    display:block; 
+    width:0;
+}
+
+.menuNew > input {
+	color: rgba(200,200,200,1.0);
+	border-radius: 4px;
+	border: 1px solid rgba(255,255,255, 0.9);
+	background-color: black;
+}
+
+.menuAddFile {
+	left: 175px;
+	top: 50px;
+	width: 400px;
+	-webkit-transform: translate(-30px, 0px);
+	margin-left:50px;
+}
+.menuAddFile:after {
+	top:16px; /* controls vertical position */
+	left:-20px; /* value = - border-left-width - border-right-width */
+	bottom:auto;
+	border-width:10px 20px 10px 0;
+	border-color:transparent rgba(0,0,0, 0.9);
+}
+.menuAddSnd {
+	top: 100px;
+}
+
+.menuAddRoom {
+	top: 150px;
+	width: 200px;
+}
+
+.menuRoomInput {
+	font-size: 12px;
+	font-family: helvetica, arial, sans-serif;
+	color: rgba(220,220,220,1);
+	
+	background-color: rgb(0,0,0);
+	border: 1px solid rgb(180,180,180);
+	width: 100px;
+	
+	float: right;
+	border-radius: 10px;
+	padding-left: 5px;
+}
+.menuRoomInput[type="number"] {
+	border-radius: 10px 0px 0px 10px;
+}
+
+.menuRoomInput:after {
+	content: "";
+	clear: both;
+}
+
+.menuAddCode {
+	top:45px; bottom:15px;
+	width: 250px;
+	overflow-y: auto;
+	overflow-x: visible;
+}
+
+.menuAddCodeName {
+	border-radius: 10px;
+	padding: 5px 2px 2px 5px;
+	border: 1px solid rgb(120,120,120);
+	background-color: rgb(10,10,10);
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	color: rgb(230, 230, 230);
+}
+
+.menuDropbox {
+	margin: 10px;
+	border: 2px dashed rgba(255, 255, 255, 0.3);
+	border-radius: 10px;
+	height: 150px;
+	overflow-y: auto;
+}
+
+.menuDroppedFile {
+	border: 1px solid rgba(240, 240, 240, 0.6);
+	border-radius: 10px;
+	margin: 10px;
+	
+	height: 40px;
+	overflow: hidden;
+	
+	background-color: rgba(0,0,0, 0.8);
+	opacity: 1;
+	
+	-webkit-transition-property: opacity, height;
+	-webkit-transition-duration: 500ms, 500ms;
+	-webkit-transition-timing-function: ease-in-out, ease-in-out;
+}
+
+.menuDroppedFileRemoved {
+	opacity: 0;
+	height: 0px;
+}
+
+.menuDroppedFileText {
+	float: left;
+	padding-left: 10px;
+	padding-top: 10px;
+}
+
+.menuDroppedFileActions {
+	float: right;
+	opacity: 0.2;
+	
+	margin-right: 5px;
+	margin-top: 3px;
+	
+	-webkit-transition: opacity 500ms ease-in-out;
+}
+
+.menuDroppedFileActionsOver {
+	opacity: 1;
+}
+
+.menuNewVisible, .menuAddFileVisible {
+	opacity: 1;
+	-webkit-transform: translate(0px, 0px);
+	pointer-events:auto;
+}
+
+/**======================================
+  *         POPUP NOTIFICATIONS
+  *======================================*/
+
+.notify {
+	position: absolute;
+	right: 10px;
+	top: 45px;
+	
+	padding: 10px;
+	
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	color: rgba(230,230,230, 1.0);
+	text-shadow: 0px 1px 0px rgba(0,0,0, 0.8);
+	overflow: hidden;
+	
+	background-color: rgba(0,0,0, 0.7);
+	border-radius: 10px;
+	
+	box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.5);
+	
+	width: 250px;
+	height: 55px;
+	pointer-events: none;
+	
+	opacity: 0;
+	-webkit-transition: opacity 500ms ease-in-out;
+}
+
+.notifyVisible {
+	opacity: 1;
+	pointer-events: auto;
+}
+
+.notifyIcon {
+	width: 55px;
+	height: 55px;
+	float: left;
+}
+
+.notifyText {
+	margin-left: 10px;
+	width: 180px;
+	float: left;
+	white-space: nowrap
+}
+
+.notifyTitle {
+	margin-left: 10px;
+	width: 130px;
+	float: left;
+	
+	font-size: 16px;
+	font-weight: bold;
+}
+
+/**======================================
+  *         MODAL DIALOGS
+  *======================================*/
+.modalScreen {
+	position: absolute;
+	left: 0px; top: 0px;
+	width: 100%; height: 100%;
+	
+	background-color: rgba(0,0,0, 0.7);
+	opacity: 0;
+	pointer-events:none;
+	
+	-webkit-transition: opacity 500ms ease-in-out;
+	
+	z-index: 400;
+}
+
+.modalScreenUp {
+	pointer-events:auto;
+	opacity: 1;
+}
+
+.modalCont {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	overflow: visible;
+}
+
+.modalBtnsDialog, .modalImageDialog, .modalSoundDialog {
+	position: absolute;
+	left: -175px;
+	top: -65px;
+	
+	width: 250px;
+	height: 130px;
+	
+	padding: 10px;
+	
+	border-radius: 10px;
+	background-color: rgba(0,0,0, 0.8);
+	clear: both;
+	
+	display: none;
+}
+
+.modalBtnsDialogTitle, .modalBtnsDialogText {
+	font-size: 16px;
+	font-weight: bold;
+	font-family: helvetica, arial, sans-serif;
+	text-shadow: 0px 1px 0px rgba(0,0,0, 0.3);
+	color: rgba(220,220,220,1);
+	padding-bottom: 5px;
+	
+	border-bottom: 1px solid rgba(255,255,255, 0.8);
+}
+
+.modalBtnsDialogText {
+	margin-top: 10px;
+	font-size: 14px;
+	font-weight: normal;
+	border-bottom-style: none;
+}
+
+.modalBtnsButtonRow {
+	position: absolute;
+	right: 0px;
+	bottom: 10px;
+}
+
+.modalBtnsButton {
+	float: right;
+	margin-right: 10px;
+}
+
+/** ----- file choosers ----- **/
+.modalContFile {
+	top: 40px;
+	bottom: 40px;
+}
+
+.modalFileButtons {
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	
+	width: 181px;
+	height: 40px;
+}
+
+.modalFileButtonSave, .modalFileButtonCancel {
+	margin-right: 10px;
+}
+
+.modalFileListing {
+	border: 1px solid rgba(0,0,0, 0.8);
+	background-image: -webkit-gradient(linear, left bottom, left top,
+    	color-stop(0,   rgb( 30, 30, 30)),
+    	color-stop(1.0, rgb( 80, 80, 80))
+    	);
+	border-radius: 10px;
+	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5);
+	clear: both;
+}
+
+.modalFileListingItem {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1);
+	position: relative;
+	height: 35px;
+	cursor: pointer;
+}
+
+.modalFileListingItemSelected {
+	background-image: -webkit-gradient(linear, left bottom, left top,
+    	color-stop(0,   rgb(  0,  0, 30)),
+    	color-stop(1.0, rgb(  0,  0, 80))
+    	);
+}
+
+.modalFileListingItemThumb {
+	left: 10px;
+}
+
+.modalFileListingItemText {
+	position: absolute;
+	left: 50px; top: 8px;
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	color: rgba(230,230,230, 1.0);
+	text-shadow: 0px 1px 0px rgba(0,0,0, 0.8);
+}
+
+.modalFileListingItemEnd {
+	border-bottom-style: none;
+	box-shadow: none;
+}
+
+/** ----- image ----- **/
+
+.modalImageDialog, .modalSoundDialog {
+	display: none;
+	
+	position: absolute;
+	top: 0px;
+	left: -170px;
+	width: 400px;
+	height: 100%;
+	
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	color: rgba(230,230,230, 1.0);
+	text-shadow: 0px 1px 0px rgba(0,0,0, 0.8);
+}
+
+.modalImagePicture {
+	position: absolute;
+	left: 10px; top: 30px;
+	width: 100px;
+	height: 100px;
+	
+	border: 2px dashed rgba(255, 255, 255, 0.3);
+	border-radius: 10px;
+	padding: 10px;
+}
+
+.modalImagePictureImg {
+	max-width: 110px;
+	max-height: 110px;
+}
+
+.modalImagePictureImgHidden {
+	display: none;
+}
+
+.modalImageSettings {
+	position: absolute;
+	left: 170px; top: 30px;
+	width: 230px;
+	
+	font-family: helvetica, arial, sans-serif;
+	font-size: 14px;
+	color: rgba(230,230,230, 1.0);
+	text-shadow: 0px 1px 0px rgba(0,0,0, 0.8);
+}
+
+.modalImageAnimationSettings {
+	padding-left: 20px;
+	opacity: 0.3;
+	-webkit-transition: opacity 500ms ease-in-out;
+}
+
+.modalImageAnimationSettingsEnabled {
+	opacity: 1;
+}
+
+.modalImageCheck {}
+
+.modalImageAnimationInput {
+	float: left;
+	width: 50px;
+	
+	background: rgb(0,0,0);
+	border: 1px solid rgb(220,220,220);
+	border-radius: 10px 0px 0px 10px;
+	
+	padding-left: 5px;
+	color: rgb(220,220,220);
+}
+
+.modalImageAnimationSettingsLabel {
+	float: left;
+	padding-left: 5px;
+	padding-top: 5px;
+}
+
+.modalImageListingPanel, .modalSoundListingPanel {
+	clear: both;
+	position: absolute;
+	left: 10px; right: 10px;
+	top: 180px; bottom: 60px;
+	border: 2px dashed rgba(255, 255, 255, 0.3);
+	border-radius: 10px;
+	overflow-y: auto;
+}
+
+/** ----- sound ----- **/
+.modalSoundDialog {
+	display: none;
+}
+
+.modalSoundListingPanel {
+	top: 40px;
+}
+
+
+/** ----- All Modals ----- **/
+.modalDialogVisible {
+	display: inline;
+}
+
+/**======================================
+  *         EDITOR MAIN
+  *======================================*/
+
+.main {
+	position: absolute;
+	left: 220px;
+	top: 40px;
+	bottom: 0px;
+	right: 0px;
+	z-index: 100;
+}
+
+.editor {
+	position: absolute;
+	left: 0px; top: 0px;
+}
+
+.editorScroll {
+	position: absolute;
+	left: 0px; top: 0px;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	z-index: 100;
+}
+
+.editorWH {
+	width: 10px;
+	height: 10px;
+}
+
+.editorXY {
+	position: absolute;
+	left: 10px; top: 10px;
+	border-radius: 10px;
+	background-color: rgba(0,0,0, 0.5);
+	
+	font-size: 12px;
+	font-family: helvetica, arial, sans-serif;
+	color: rgba(220,220,220,1);
+	padding: 4px;
+}
+
+/**======================================
+  *         GENERICS
+  *======================================*/
+  
+.genericOpts {
+	margin-top: 10px;
+	border: 1px solid rgba(0,0,0, 0.8);
+	background-image: -webkit-gradient(linear, left bottom, left top,
+    	color-stop(0,   rgb( 30, 30, 30)),
+    	color-stop(1.0, rgb( 80, 80, 80))
+    	);
+	border-radius: 10px;
+	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5);
+	clear: both;
+	overflow: hidden;
+}
+
+.genericPropertyRow {
+	position: relative;
+	left: 0px; top: 0px;
+	
+	font-size: 14px;
+	font-weight: normal;
+	font-family: helvetica, arial, sans-serif;
+	text-shadow: 0px 1px 0px rgba(0,0,0, 0.3);
+	color: rgba(220,220,220,1);
+	
+	border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+	box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.1);
+	clear: both;
+	padding: 8px;
+}
+
+.genericPropertyRowEnd {
+	border-bottom: 0px none black;
+	box-shadow: none;
+}
+
+.genericPropText {
+}
+
+.genericPropBtn {
+	position: absolute;
+	right: 10px;
+	top: 0px;
+}
+
+.genericPropHiddenInput {
+	position: absolute;
+	left: -40px;
+	top: 0px;
+	width: 20px;
+}
+
+.genericPropNumber {
+	position: absolute; right: 5px; top: 5px;
+	
+	width: 75px;
+	border-radius: 10px 0px 0px 10px;
+	border: 1px solid rgba(255,255,255,0.8);
+	background-color: rgb(0,0,0);
+	
+	padding-left: 10px;
+	
+	font-size: 14px;
+	font-weight: normal;
+	font-family: helvetica, arial, sans-serif;
+	color: rgba(220,220,220, 1);
+}
+
+.genericPropCheckbox {
+	float: left;
+	margin: 2px 10px 0px 2px;
+}
