@@ -4,7 +4,7 @@
 
 Generic Star is a library and rapid-prototyping tool for creating HTML5 Games. It is segmented into two main components: the core and the editor.
 
-The core is a collection of wrappers around HTML5 functionality. The core’s goal is not to abstract too much of HTML5 away, but rather, to cut out some of the common roadblocks and boiler plate code required for complex HTML5 usage, such as WebGL.
+The core is a collection of wrappers around HTML5 functionality. The core's goal is not to abstract too much of HTML5 away, but rather, to cut out some of the common roadblocks and boiler plate code required for complex HTML5 usage, such as WebGL.
 
 The editor is an HTML frontend for quickly scaffolding games. The idea behind it is that a user can quickly throw images and sounds into a project and create some objects based off of common objects (such as a box, a wall, a platforming player). These common objects are called Generics. The user can then create some rooms (which are collections of objects), add their objects to the rooms and immediately run the game. The GUI allows for editing settings of the Generics to allow for a large breadth of games to be developed using generics alone.
 
@@ -22,9 +22,9 @@ Node.js is not required for the static demo. This is because the static demo doe
 ### 2.3 Running the Editor
 
 To run the demo, Node.js must be installed. To run it, make sure you are in the root directory of Generic Star and run:
-node generic-star/node/server.js
+`node generic-star/node/server.js`
 
-If node was built from scratch or was not included in your path, your command may require the path to the node binary preceding it - but make sure you run the command from the root directory of Generic Star, not Node’s root directory.
+If node was built from scratch or was not included in your path, your command may require the path to the node binary preceding it - but make sure you run the command from the root directory of Generic Star, not Node's root directory.
 
 Once the editor is running, you should get a message instructing you to visit a link in your browser. Simply go to that site to view the editor.
 
@@ -34,13 +34,13 @@ Generic Star is primarily written in Javascript, with the exception of GUI eleme
 
 ### 3.1 Javascript Style
 
-Everything in Generic Star should be collected in the GenericStar object / namespace. If an object is directly in the GenericStar namespace, then it should be used directly by the games themselves in order to run. If an object is instead used for the editor (and thus does not need to be called in at a game’s runtime), it should be placed in the GenericStar.Editor object / namespace.
+Everything in Generic Star should be collected in the GenericStar object / namespace. If an object is directly in the GenericStar namespace, then it should be used directly by the games themselves in order to run. If an object is instead used for the editor (and thus does not need to be called in at a game's runtime), it should be placed in the GenericStar.Editor object / namespace.
 
 All classes and public functions should be prefaced with proper [JSDoc](http://code.google.com/p/jsdoc-toolkit/).
 
 Classes are implemented as function-objects, and come in two flavors:
-Library / GUI Class. This class is only ever instantiated by the library, and there are never many instances of this class at once. To create one of these classes, [closures](https://developer.mozilla.org/en/JavaScript/Guide/Closures) are used to guarantee privacy of variables, and all public and private variables and functions are defined within the constructor function using the “this” keyword. Inheritance is achieved through the use of [prototypes](https://developer.mozilla.org/en/JavaScript/Guide/Inheritance_constructor_prototype).
-Instance Class. This class will scale to any number of instances at one time. This class is only used in scenarios when number of instances is unknown due to user allocation. All variables and functions are public and accessed with the “this” keyword. Every instance class should have a prototype to inherit from, even if it is just to define default values of variables.
+Library / GUI Class. This class is only ever instantiated by the library, and there are never many instances of this class at once. To create one of these classes, [closures](https://developer.mozilla.org/en/JavaScript/Guide/Closures) are used to guarantee privacy of variables, and all public and private variables and functions are defined within the constructor function using the "this" keyword. Inheritance is achieved through the use of [prototypes](https://developer.mozilla.org/en/JavaScript/Guide/Inheritance_constructor_prototype).
+Instance Class. This class will scale to any number of instances at one time. This class is only used in scenarios when number of instances is unknown due to user allocation. All variables and functions are public and accessed with the "this" keyword. Every instance class should have a prototype to inherit from, even if it is just to define default values of variables.
 
 
 This design, while complicated, allows for efficient usage of memory by not duplicating default values in instances of classes that are commonly instantiated.
@@ -69,22 +69,22 @@ Note that the WebGL Plugin uses the [glMatrix](http://code.google.com/p/glmatrix
 
 ### 4.3 Input
 
-This class simply attaches input handlers to the page and abstracts out the need for an event-driven system. Since the game is run step-by-step, it is easier to simply have a method that determines if a key is down and returns true or false, rather than dealing with events. This class abstracts out events by storing each key’s status and returning them whenever asked.
+This class simply attaches input handlers to the page and abstracts out the need for an event-driven system. Since the game is run step-by-step, it is easier to simply have a method that determines if a key is down and returns true or false, rather than dealing with events. This class abstracts out events by storing each key's status and returning them whenever asked.
 It works similarly for mouse position and mouse button status.
 
 ### 4.4 Sound
 
-This class handles sound playback using HTML5 Audio. In order to minimize memory usage, the class makes a distinction between two playback methods: “background” and “effect”. Each sound can be played with either method. The background method can only play one instance of a given sound at once (thus saving memory by only needing to allocate one global instance of that sound) whereas the effect mode allocates new memory and plays back the sound, leaving it for the garbage collector to clean up.
+This class handles sound playback using HTML5 Audio. In order to minimize memory usage, the class makes a distinction between two playback methods: "background" and "effect". Each sound can be played with either method. The background method can only play one instance of a given sound at once (thus saving memory by only needing to allocate one global instance of that sound) whereas the effect mode allocates new memory and plays back the sound, leaving it for the garbage collector to clean up.
 
 ### 4.5 Physics
 
-This class is a wrapper around the [Box2D Web library](http://code.google.com/p/box2dweb/). It handles simple actions like creating boxes, circles, and polygons. It also handles creating a “player” object that has complicated physical properties specially tweaked to make it more like a classic platformer player. These tweaks include variable height jumping, wall-stickiness (used for wall-jumping) and different methods of movement (including changing movement types depending if the player is on the ground). Finally, the wrapper can also deal with creating different joints in a simple and easy to use fashion.
+This class is a wrapper around the [Box2D Web library](http://code.google.com/p/box2dweb/). It handles simple actions like creating boxes, circles, and polygons. It also handles creating a "player" object that has complicated physical properties specially tweaked to make it more like a classic platformer player. These tweaks include variable height jumping, wall-stickiness (used for wall-jumping) and different methods of movement (including changing movement types depending if the player is on the ground). Finally, the wrapper can also deal with creating different joints in a simple and easy to use fashion.
 
 ## 5. Architecture: Editor
 
 ### 5.1 Server
 
-The server doesn’t contain state about what is going on in the GUI, and simply acts as a method of (safely) creating and removing files. The server acts as a basic file server with the ability to stream audio in order to allow for the Sound class. The server also acts as an upload point, adding files to whatever game is requested. Finally, the server also executes specialized commands such as reading saved object properties from generated code and overwriting those properties if the GUI changes them. Another important specialized command is the ability to copy templates (the boiler plate code that Generics generate) into games, adding settings and the correct namespace / class name to the created file.
+The server doesn't contain state about what is going on in the GUI, and simply acts as a method of (safely) creating and removing files. The server acts as a basic file server with the ability to stream audio in order to allow for the Sound class. The server also acts as an upload point, adding files to whatever game is requested. Finally, the server also executes specialized commands such as reading saved object properties from generated code and overwriting those properties if the GUI changes them. Another important specialized command is the ability to copy templates (the boiler plate code that Generics generate) into games, adding settings and the correct namespace / class name to the created file.
 
 Note that the Server uses the [Formidable](https://github.com/felixge/node-formidable) library for processing uploads.
 
@@ -106,7 +106,7 @@ These classes implement a polished version of javascript functions like alert. N
 
 #### 5.2.4 State Management Classes: GameLoader and Sidebar
 
-These classes handle the global state. Each provide an interface for hooking into data-changed events such as “fire when the user loads a new game”, or “fire when the user changes an object, image, or sound setting”. These events are useful by the other classes that need to have an up-to-date listing of the files present in the current game. These classes are also the link via AJAX to the server to keep the disk synchronized with the current state. Sidebar, in addition to managing state, manges the GUI of the sidebar.
+These classes handle the global state. Each provide an interface for hooking into data-changed events such as "fire when the user loads a new game", or "fire when the user changes an object, image, or sound setting". These events are useful by the other classes that need to have an up-to-date listing of the files present in the current game. These classes are also the link via AJAX to the server to keep the disk synchronized with the current state. Sidebar, in addition to managing state, manges the GUI of the sidebar.
 
 #### 5.2.5 Level Editor
 
@@ -133,7 +133,7 @@ A file is added to / modified in the rooms folder any time the editor decides th
 
 ### 6.1 Adding a Generic
 
-To add a generic, first create a template for the generic in the generic-star/node/templates directory. This template file must use $$GAME_NAME$$ and $$OBJECT_NAME$$ as the game and object names (since those are set by the user). The template file will be given all variables created in the next step. These variables can be accessed with the “this” keyword.
+To add a generic, first create a template for the generic in the generic-star/node/templates directory. This template file must use $$GAME_NAME$$ and $$OBJECT_NAME$$ as the game and object names (since those are set by the user). The template file will be given all variables created in the next step. These variables can be accessed with the "this" keyword.
 
 Next, the generic.js file must be edited. First, create a Generic object by setting its prototype to a new GenericStar.Editor.Generics.Generic(variables); instance, where variables is a JSON object containing variables to be set by the user (which will be accessible in the previous step). This object must be modeled like the other JSON variable containers in this file. The prototype must also contain getSelf (which returns a new instance of this object), __type (which just contains a string denoting the name of the generic), and draw, which is a method that is called in the level editor.
 
@@ -143,4 +143,4 @@ Finally, in generic.js, the GenericManifest class must be edited to include your
 
 The Main.html file in the templates directory contains the main runner code that runs each generated game. It can be edited by keeping in mind the following macros:
 $$GAME_NAME$$ will be replaced with the name of the game.
-$$GAME_INCLUDES$$ will be replaced with a list of <script> tags that reference each auto-generated javascript file (both rooms and objects).
+$$GAME_INCLUDES$$ will be replaced with a list of `<script>` tags that reference each auto-generated javascript file (both rooms and objects).
